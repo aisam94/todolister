@@ -1,8 +1,20 @@
+import { useState } from "react";
 import Link from "next/link";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 const Login = () => {
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
+
+  const { username, password } = formData;
+
+  const change = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
   return (
     <>
       <body>
@@ -16,7 +28,8 @@ const Login = () => {
                 name="username"
                 class="form-field"
                 placeholder="Username"
-                value
+                value={username}
+                onChange={(event) => change(event)}
                 required
               />
               <input
@@ -24,7 +37,8 @@ const Login = () => {
                 name="password"
                 class="form-field"
                 placeholder="Password"
-                value
+                value={password}
+                onChange={(event) => change(event)}
                 required
               />
               <input type="submit" class="btn form-submit" value="LOG IN" />

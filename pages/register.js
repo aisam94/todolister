@@ -1,8 +1,22 @@
+import { useState } from "react";
 import Link from "next/link";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 const Register = () => {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    password2: "",
+  });
+
+  const { username, email, password, password2 } = formData;
+
+  const change = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
   return (
     <>
       <body>
@@ -16,7 +30,8 @@ const Register = () => {
                 name="username"
                 class="form-field"
                 placeholder="Username"
-                value
+                value={username}
+                onChange={(event) => change(event)}
                 required
               />
               <input
@@ -24,7 +39,8 @@ const Register = () => {
                 name="email"
                 class="form-field"
                 placeholder="Email Address"
-                value
+                value={email}
+                onChange={(event) => change(event)}
                 required
               />
               <input
@@ -33,6 +49,8 @@ const Register = () => {
                 class="form-field"
                 placeholder="Password"
                 value
+                value={password}
+                onChange={(event) => change(event)}
                 required
               />
               <input
@@ -40,7 +58,8 @@ const Register = () => {
                 name="password2"
                 class="form-field"
                 placeholder="Reenter Password"
-                value
+                value={password2}
+                onChange={(event) => change(event)}
                 required
               />
               <input
