@@ -17,50 +17,52 @@ const Login = () => {
 
   return (
     <>
-      <body>
-        <Header />
-        <main class="login-main">
-          <div class="form-container">
-            <h1 class="form-secondary-title">Sign in to your account</h1>
-            <form class="form-inputs">
-              <input
-                type="text"
-                name="username"
-                class="form-field"
-                placeholder="Username"
-                value={username}
-                onChange={(event) => change(event)}
-                required
-              />
-              <input
-                type="password"
-                name="password"
-                class="form-field"
-                placeholder="Password"
-                value={password}
-                onChange={(event) => change(event)}
-                required
-              />
-              <input type="submit" class="btn form-submit" value="LOG IN" />
-            </form>
-            <div class="form-notice-container">
-              <div>
-                <input class="" name="remember-me" type="checkbox" />
-                <label for="remember-me" class="form-notice">
-                  Remember me
-                </label>
-              </div>
-              <Link href="#">
-                <a class="form-notice">Forgot password?</a>
-              </Link>
-              <h3 class="form-notice">
-                Don't have an account?
-                <Link href="/register"> Register here.</Link>
-              </h3>
+      <Header />
+      <main className="login-main">
+        <div className="form-container">
+          <h1 className="form-secondary-title">Sign in to your account</h1>
+          <form className="form-inputs">
+            <input
+              type="text"
+              name="username"
+              className="form-field"
+              placeholder="Username"
+              value={username}
+              onChange={(event) => change(event)}
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              className="form-field"
+              placeholder="Password"
+              value={password}
+              onChange={(event) => change(event)}
+              required
+            />
+            <input
+              type="submit"
+              className="btn btn-red form-submit"
+              value="LOG IN"
+            />
+          </form>
+          <div className="form-notice-container">
+            <div>
+              <input className="" name="remember-me" type="checkbox" />
+              <label htmlFor="remember-me" className="form-notice">
+                Remember me
+              </label>
             </div>
+            <Link href="#">
+              <a className="form-notice">Forgot password?</a>
+            </Link>
+            <h3 className="form-notice">
+              Don't have an account?
+              <Link href="/register"> Register here.</Link>
+            </h3>
           </div>
-        </main>
-      </body>
+        </div>
+      </main>
       <Footer />
     </>
   );
