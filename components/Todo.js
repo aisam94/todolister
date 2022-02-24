@@ -27,6 +27,21 @@ const Todo = () => {
     setTodoData(todoList.filter((item) => item.id !== Number(id)));
   };
 
+  const toggleItem = (event) => {
+    const id = event.target.getAttribute("id");
+    const item = todoList.find((item) => item.id === Number(id));
+    item.checked = !item.checked;
+    setTodoData([...todoList]);
+
+    const todoItem = document.querySelector(`[data-key='${id}']`);
+    if (item.checked) {
+      todoItem.style.textDecoration = "line-through";
+    } else {
+      todoItem.style.textDecoration = "none";
+    }
+    console.log({ todoList });
+  };
+
   return (
     <div className="todo-container">
       <h1 className="todo-title">Todo List</h1>
@@ -44,8 +59,14 @@ const Todo = () => {
       <ul className="todo-list">
         {todoList.map((item) => {
           return (
-            <li key={item.id}>
-              <input id={item.id} className="checkbox" type="checkbox" />
+            <li key={item.id} data-key={item.id}>
+              <input
+                id={item.id}
+                className="checkbox"
+                type="checkbox"
+                checked={item.checked}
+                onChange={toggleItem}
+              />
               <label htmlFor={item.id} className="tick"></label>
               <span className="todo-item-text">{item.text}</span>
               <div className="todo-item-btn">
