@@ -3,6 +3,9 @@ import Link from "next/link";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
+import { createUserWithEmailAndPassword } from "@firebase/auth";
+import { auth } from "../firebase";
+
 const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
@@ -13,8 +16,29 @@ const Register = () => {
 
   const { username, email, password, password2 } = formData;
 
+  const createUser = (email, password) => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+  };
+
   const change = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
+  const submit = (event) => {
+    event.preventDefault();
+    if (password === password2) {
+      // create user
+      createUser(email, password);
+    } else {
+      console.log("error creating user");
+    }
   };
 
   return (
@@ -23,7 +47,7 @@ const Register = () => {
       <main className="login-main">
         <div className="form-container">
           <h1 className="form-secondary-title">Register your account</h1>
-          <form className="form-inputs">
+          <form className="form-inputs" onSubmit={(event) => submit(event)}>
             <input
               type="text"
               name="username"
