@@ -58,7 +58,7 @@ nav a:active {
   background-color: #eb1234;
   color: white;
 }
-.announcement {
+.greeting {
   margin-top: 6em;
   width: 30%;
 }
@@ -68,12 +68,12 @@ main {
   justify-content: space-around;
 }
 
-.big-announcement {
+.big-greeting {
   color: #eb1234;
   font-size: 3em;
 }
 
-.small-announcement {
+.small-greeting {
   margin: 1em auto;
   font-size: 1em;
   line-height: 2em;
