@@ -2,17 +2,40 @@ import { useState } from "react";
 import Link from "next/link";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import { signInWithEmailAndPassword } from "@firebase/auth";
+import { auth } from "../firebase";
+import { useRouter } from "next/router";
 
 const Login = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
-  const { username, password } = formData;
+  const { email, password } = formData;
+
+  const signIn = (email, password) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log({ errorCode });
+        console.log({ errorMessage });
+      });
+  };
 
   const change = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
+  const submit = (event) => {
+    event.preventDefault();
+    signIn(email, password);
+    router.push("/");
   };
 
   return (
@@ -21,13 +44,13 @@ const Login = () => {
       <main className="login-main">
         <div className="form-container">
           <h1 className="form-secondary-title">Sign in to your account</h1>
-          <form className="form-inputs">
+          <form className="form-inputs" onSubmit={(event) => submit(event)}>
             <input
-              type="text"
-              name="username"
+              type="email"
+              name="email"
               className="form-field"
-              placeholder="Username"
-              value={username}
+              placeholder="Email"
+              value={email}
               onChange={(event) => change(event)}
               required
             />

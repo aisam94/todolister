@@ -5,8 +5,10 @@ import Header from "../components/Header";
 
 import { createUserWithEmailAndPassword } from "@firebase/auth";
 import { auth } from "../firebase";
+import { useRouter } from "next/router";
 
 const Register = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -34,8 +36,8 @@ const Register = () => {
   const submit = (event) => {
     event.preventDefault();
     if (password === password2) {
-      // create user
       createUser(email, password);
+      router.push("/");
     } else {
       console.log("error creating user");
     }

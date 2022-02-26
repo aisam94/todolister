@@ -8,6 +8,7 @@ const HomePage = () => {
     <>
       <Header />
       <main>
+        <div class="user-greeting">Hello, Guest!</div>
         <Greeting />
         <Todo />
       </main>
