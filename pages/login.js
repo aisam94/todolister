@@ -19,6 +19,7 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        router.push("/");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -35,7 +36,6 @@ const Login = () => {
   const submit = (event) => {
     event.preventDefault();
     signIn(email, password);
-    router.push("/");
   };
 
   return (

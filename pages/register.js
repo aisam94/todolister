@@ -22,10 +22,13 @@ const Register = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        router.push("/");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        console.log({ errorCode });
+        console.log({ errorMessage });
       });
   };
 
@@ -37,9 +40,8 @@ const Register = () => {
     event.preventDefault();
     if (password === password2) {
       createUser(email, password);
-      router.push("/");
     } else {
-      console.log("error creating user");
+      console.log("Password not matching");
     }
   };
 

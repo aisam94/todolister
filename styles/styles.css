@@ -37,6 +37,8 @@ h3 {
 }
 
 .link-container {
+  display: flex;
+  align-items: center;
   right: 0;
   position: absolute;
 }
