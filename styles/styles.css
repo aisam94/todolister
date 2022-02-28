@@ -155,6 +155,17 @@ main {
   width: 9em;
 }
 
+.edit-form {
+  padding: 0 0.3em;
+  /* width: 9em; */
+}
+
+.edit-input-form {
+  width: 100%;
+  border-radius: 0;
+  margin: 0;
+}
+
 .btn-edit-todo {
   border: 0;
   margin: auto 0.5em;
