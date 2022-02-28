@@ -21,9 +21,8 @@ const Todo = () => {
       const newItem = {
         text: text,
         checked: false,
-        id: Date.now(),
+        id: nanoid(),
         isEditing: false,
-        // id: nanoid(),
       };
       setTodoData([...todoList, newItem]);
       setFormData("");
@@ -32,12 +31,12 @@ const Todo = () => {
 
   const deleteTodo = (event) => {
     const id = event.target.getAttribute("id");
-    setTodoData(todoList.filter((item) => item.id !== Number(id)));
+    setTodoData(todoList.filter((item) => item.id !== id));
   };
 
   const toggleItem = (event) => {
     const id = event.target.getAttribute("id");
-    const item = todoList.find((item) => item.id === Number(id));
+    const item = todoList.find((item) => item.id === id);
     item.checked = !item.checked;
     setTodoData([...todoList]);
 
@@ -54,19 +53,18 @@ const Todo = () => {
     const id = event.target.getAttribute("id");
     const text = todoinput2.trim();
     const editedTodo = todoList.map((item) => {
-      if (Number(id) === item.id) {
+      if (id === item.id) {
         return { ...item, text: text };
       }
       return item;
     });
-    console.log({ id, editedTodo });
     setTodoData(editedTodo);
     setFormData2("");
   };
 
   const toggleEdit = (event) => {
     const id = event.target.getAttribute("id");
-    const item = todoList.find((item) => item.id === Number(id));
+    const item = todoList.find((item) => item.id === id);
     item.isEditing = !item.isEditing;
     setTodoData([...todoList]);
   };
