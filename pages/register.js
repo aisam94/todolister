@@ -2,10 +2,13 @@ import { useState } from "react";
 import Link from "next/link";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-
 import { createUserWithEmailAndPassword } from "@firebase/auth";
 import { auth } from "../firebase";
 import { useRouter } from "next/router";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
 
 const Register = () => {
   const router = useRouter();
@@ -27,6 +30,7 @@ const Register = () => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        createNotification(errorCode);
         console.log({ errorCode });
         console.log({ errorMessage });
       });
@@ -41,13 +45,35 @@ const Register = () => {
     if (password === password2) {
       createUser(email, password);
     } else {
-      console.log("Password not matching");
+      createNotification("password not matching");
+    }
+  };
+
+  const createNotification = (errorMsg) => {
+    switch (errorMsg) {
+      case "auth/weak-password":
+        return NotificationManager.error(
+          "Password should be at least 6 characters"
+        );
+        break;
+      case "auth/invalid-email":
+        return NotificationManager.error("Invalid email format");
+        break;
+      case "auth/email-already-in-use":
+        return NotificationManager.error("Email already in use");
+        break;
+      case "password not matching":
+        return NotificationManager.error("Password not matching");
+        break;
+      default:
+        return NotificationManager.error("Error registering account");
     }
   };
 
   return (
     <>
       <Header />
+      <NotificationContainer />
       <main className="login-main">
         <div className="form-container">
           <h1 className="form-secondary-title">Register your account</h1>

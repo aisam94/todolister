@@ -1,10 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { signInWithEmailAndPassword } from "@firebase/auth";
 import { auth } from "../firebase";
 import { useRouter } from "next/router";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
 
 const Login = () => {
   const router = useRouter();
@@ -24,6 +28,13 @@ const Login = () => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        if (errorCode === "auth/too-many-requests") {
+          createNotification(
+            "Access to this account has been temporarily disabled due to many failed login attempts"
+          );
+        } else {
+          createNotification("Email or password is wrong");
+        }
         console.log({ errorCode });
         console.log({ errorMessage });
       });
@@ -38,9 +49,14 @@ const Login = () => {
     signIn(email, password);
   };
 
+  const createNotification = (errorMsg) => {
+    return NotificationManager.error(errorMsg);
+  };
+
   return (
     <>
       <Header />
+      <NotificationContainer />
       <main className="login-main">
         <div className="form-container">
           <h1 className="form-secondary-title">Sign in to your account</h1>
