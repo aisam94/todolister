@@ -8,7 +8,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 const Header = () => {
   const router = useRouter();
   const [user] = useAuthState(auth);
-  // const emailName = user.email.substring(0, user.email.lastIndexOf("@"));
 
   const logOut = () => {
     signOut(auth)
@@ -32,7 +31,6 @@ const Header = () => {
         <Link href="/about">About Us</Link>
         {user ? (
           <div>
-            {/* <a>{emailName}</a> */}
             <a onClick={logOut}>Log Out</a>
           </div>
         ) : (

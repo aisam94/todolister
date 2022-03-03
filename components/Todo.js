@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { nanoid } from "nanoid";
+import { doc, setDoc } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db } from "../firebase";
 
-const Todo = () => {
+const Todo = ({ todoData = [] }) => {
+  const [user] = useAuthState(auth);
   const [todoinput, setFormData] = useState("");
   const [todoinput2, setFormData2] = useState("");
-  const [todoList, setTodoData] = useState([]);
+  const [todoList, setTodoData] = useState(todoData);
 
   const change = (event) => {
     setFormData(event.target.value);
@@ -24,28 +28,27 @@ const Todo = () => {
         id: nanoid(),
         isEditing: false,
       };
+
       setTodoData([...todoList, newItem]);
       setFormData("");
     }
+    const newList = [...todoList, newItem];
+    updateList(newList);
   };
 
   const deleteTodo = (event) => {
     const id = event.target.getAttribute("id");
+    const newList = todoList.filter((item) => item.id !== id);
     setTodoData(todoList.filter((item) => item.id !== id));
+    updateList(newList);
   };
 
-  const toggleItem = (event) => {
+  const toggleCheckbox = (event) => {
     const id = event.target.getAttribute("id");
     const item = todoList.find((item) => item.id === id);
     item.checked = !item.checked;
     setTodoData([...todoList]);
-
-    const todoItem = document.querySelector(`[data-key='${id}']`);
-    if (item.checked) {
-      todoItem.style.textDecoration = "line-through";
-    } else {
-      todoItem.style.textDecoration = "none";
-    }
+    updateList(todoList);
   };
 
   const editTodo = (event) => {
@@ -54,12 +57,15 @@ const Todo = () => {
     const text = todoinput2.trim();
     const editedTodo = todoList.map((item) => {
       if (id === item.id) {
-        return { ...item, text: text };
+        text = text !== "" ? text : item.text;
+        return { ...item, text: text, isEditing: false };
       }
       return item;
     });
     setTodoData(editedTodo);
     setFormData2("");
+
+    updateList(editedTodo);
   };
 
   const toggleEdit = (event) => {
@@ -67,6 +73,12 @@ const Todo = () => {
     const item = todoList.find((item) => item.id === id);
     item.isEditing = !item.isEditing;
     setTodoData([...todoList]);
+  };
+
+  const updateList = (newList) => {
+    if (user) {
+      setDoc(doc(db, "notes", user.uid), { todo: newList }, { merge: true });
+    }
   };
 
   return (
@@ -87,21 +99,23 @@ const Todo = () => {
         {/* iterate todo list and create them one by one  */}
         {todoList.map((item) => {
           return (
-            <li key={item.id} data-key={item.id}>
+            <li
+              key={item.id}
+              style={{ textDecoration: item.checked ? "line-through" : "none" }}
+            >
               <input
                 id={item.id}
                 className="checkbox"
                 type="checkbox"
                 checked={item.checked}
-                onChange={toggleItem}
+                onChange={toggleCheckbox}
               />
               <label htmlFor={item.id} className="tick"></label>
               {/* replace span with input for editing */}
-              {!item.isEditing && (
+              {!item.isEditing ? (
                 <span className="todo-item-text">{item.text}</span>
-              )}
-              {item.isEditing && (
-                <form id={item.id} class="edit-form" onSubmit={editTodo}>
+              ) : (
+                <form id={item.id} className="edit-form" onSubmit={editTodo}>
                   <input
                     type="text"
                     className="edit-input-form"
