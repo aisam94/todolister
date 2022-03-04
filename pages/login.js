@@ -32,8 +32,13 @@ const Login = () => {
           createNotification(
             "Access to this account has been temporarily disabled due to many failed login attempts"
           );
-        } else {
+        } else if (
+          errorCode === "auth/wrong-password" ||
+          errorCode === "auth/user-not-found"
+        ) {
           createNotification("Email or password is wrong");
+        } else {
+          createNotification("Error signing in");
         }
         console.log({ errorCode });
         console.log({ errorMessage });

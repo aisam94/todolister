@@ -26,9 +26,8 @@ const HomePage = () => {
         <>
           <Header />
           <main>
-            <div className="user-greeting">Hello, Guest!</div>
+            <div className="user-greeting">Hello, Guest !</div>
             <Greeting />
-            <Todo />
           </main>
           <Footer />
         </>

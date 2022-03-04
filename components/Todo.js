@@ -84,7 +84,7 @@ const Todo = ({ todoData = [] }) => {
   return (
     <div className="todo-container">
       <h1 className="todo-title">Todo List</h1>
-      <form className="todo-form" onSubmit={(event) => addTodo(event)}>
+      <form className="todo-form" onSubmit={addTodo}>
         <input
           autoFocus
           type="text"
@@ -92,51 +92,110 @@ const Todo = ({ todoData = [] }) => {
           placeholder="Enter new item here..."
           className="todo-input"
           value={todoinput}
-          onChange={(event) => change(event)}
+          onChange={change}
         />
       </form>
+      {/* Incomplete item list*/}
+      <div className="todo-status-text">Incomplete</div>
       <ul className="todo-list">
-        {/* iterate todo list and create them one by one  */}
         {todoList.map((item) => {
           return (
-            <li
-              key={item.id}
-              style={{ textDecoration: item.checked ? "line-through" : "none" }}
-            >
-              <input
-                id={item.id}
-                className="checkbox"
-                type="checkbox"
-                checked={item.checked}
-                onChange={toggleCheckbox}
-              />
-              <label htmlFor={item.id} className="tick"></label>
-              {/* replace span with input for editing */}
-              {!item.isEditing ? (
-                <span className="todo-item-text">{item.text}</span>
-              ) : (
-                <form id={item.id} className="edit-form" onSubmit={editTodo}>
-                  <input
-                    type="text"
-                    className="edit-input-form"
-                    value={todoinput2}
-                    onChange={(event) => change2(event)}
-                  />
-                </form>
-              )}
-              <div className="todo-item-btn">
-                <button
+            !item.checked && (
+              <li key={item.id}>
+                <input
                   id={item.id}
-                  className="btn btn-edit-todo"
-                  onClick={toggleEdit}
-                ></button>
-                <button
+                  className="checkbox"
+                  type="checkbox"
+                  checked={item.checked}
+                  onChange={toggleCheckbox}
+                />
+                <label htmlFor={item.id} className="tick"></label>
+                {/* Edit mode or normal mode */}
+                {!item.isEditing ? (
+                  <span
+                    className="todo-item-text"
+                    style={{
+                      textDecoration: item.checked ? "line-through" : "none",
+                    }}
+                  >
+                    {item.text}
+                  </span>
+                ) : (
+                  <form id={item.id} className="edit-form" onSubmit={editTodo}>
+                    <input
+                      type="text"
+                      className="edit-input-form"
+                      value={todoinput2}
+                      onChange={change2}
+                    />
+                  </form>
+                )}
+                <div className="todo-item-btn">
+                  <button
+                    id={item.id}
+                    className="btn btn-edit-todo"
+                    onClick={toggleEdit}
+                  ></button>
+                  <button
+                    id={item.id}
+                    className="btn btn-delete-todo"
+                    onClick={deleteTodo}
+                  ></button>
+                </div>
+              </li>
+            )
+          );
+        })}
+      </ul>
+      {/* Completed item list*/}
+      <div className="todo-status-text">Completed</div>
+      <ul className="todo-list">
+        {todoList.map((item) => {
+          return (
+            item.checked && (
+              <li key={item.id}>
+                <input
                   id={item.id}
-                  className="btn btn-delete-todo"
-                  onClick={deleteTodo}
-                ></button>
-              </div>
-            </li>
+                  className="checkbox"
+                  type="checkbox"
+                  checked={item.checked}
+                  onChange={toggleCheckbox}
+                />
+                <label htmlFor={item.id} className="tick"></label>
+                {/* Edit mode or normal mode */}
+                {!item.isEditing ? (
+                  <span
+                    className="todo-item-text"
+                    style={{
+                      textDecoration: item.checked ? "line-through" : "none",
+                    }}
+                  >
+                    {item.text}
+                  </span>
+                ) : (
+                  <form id={item.id} className="edit-form" onSubmit={editTodo}>
+                    <input
+                      type="text"
+                      className="edit-input-form"
+                      value={todoinput2}
+                      onChange={change2}
+                    />
+                  </form>
+                )}
+                <div className="todo-item-btn">
+                  <button
+                    id={item.id}
+                    className="btn btn-edit-todo"
+                    onClick={toggleEdit}
+                  ></button>
+                  <button
+                    id={item.id}
+                    className="btn btn-delete-todo"
+                    onClick={deleteTodo}
+                  ></button>
+                </div>
+              </li>
+            )
           );
         })}
       </ul>

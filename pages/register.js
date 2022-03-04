@@ -13,13 +13,14 @@ import {
 const Register = () => {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    username: "",
+    // username: "",
     email: "",
     password: "",
     password2: "",
   });
 
-  const { username, email, password, password2 } = formData;
+  // const { username, email, password, password2 } = formData;
+  const { email, password, password2 } = formData;
 
   const createUser = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
@@ -78,7 +79,7 @@ const Register = () => {
         <div className="form-container">
           <h1 className="form-secondary-title">Register your account</h1>
           <form className="form-inputs" onSubmit={(event) => submit(event)}>
-            <input
+            {/* <input
               type="text"
               name="username"
               className="form-field"
@@ -86,7 +87,7 @@ const Register = () => {
               value={username}
               onChange={(event) => change(event)}
               required
-            />
+            /> */}
             <input
               type="text"
               name="email"

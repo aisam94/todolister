@@ -6,8 +6,7 @@ const Greeting = () => {
       <h2 className="big-greeting">Create a todo list!</h2>
       <h2 className="small-greeting">
         Create your own personal todo list using this website. If you dont have
-        an account, click down below to register and start making lists. You can
-        try making a list on the right.
+        an account, click down below to register and start making lists.
       </h2>
       <Link href="/register">
         <button className="btn btn-sign-up">Sign Up</button>
