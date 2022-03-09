@@ -283,3 +283,18 @@ form * {
   width: 100vw;
   height: 100vh;
 }
+
+.about-title {
+  width: 100vh;
+  margin: auto;
+  margin-top: 1em;
+  text-align: center;
+}
+
+.about-paragraph {
+  margin: auto;
+  margin-top: 1em;
+  width: 50vw;
+  line-height: 2em;
+  word-spacing: 0.2em;
+}
