@@ -11,7 +11,7 @@ body {
 
 header {
   background-color: #333;
-  overflow: hidden;
+  /* overflow: hidden; */
   display: flex;
   align-items: center;
   position: sticky;
@@ -68,6 +68,7 @@ nav a:active {
 main {
   display: flex;
   justify-content: space-around;
+  margin-bottom: 3em;
 }
 
 .big-greeting {
@@ -104,7 +105,8 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 30%;
+  /* width: 30%; */
+  width: 40%;
 }
 
 .todo-container form {
@@ -284,8 +286,12 @@ form * {
   height: 100vh;
 }
 
+.about-container {
+  display: flex;
+  flex-direction: column;
+}
 .about-title {
-  width: 100vh;
+  /* width: 100vh; */
   margin: auto;
   margin-top: 1em;
   text-align: center;
@@ -297,4 +303,64 @@ form * {
   width: 50vw;
   line-height: 2em;
   word-spacing: 0.2em;
+}
+
+@media (max-width: 640px) {
+  header {
+    flex-direction: column;
+    position: static;
+    height: auto;
+  }
+
+  header nav {
+    flex-direction: column;
+  }
+
+  .big-greeting {
+    text-align: center;
+  }
+
+  nav a,
+  nav div {
+    padding: 0.5em;
+  }
+
+  .link-container {
+    right: auto;
+    position: static;
+    margin-bottom: 0.5em;
+    justify-content: center;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .user-greeting {
+    position: static;
+  }
+
+  .greeting {
+    width: 100%;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .login-main {
+    height: auto;
+    margin-top: 1em;
+  }
+
+  .todo-container {
+    width: 100%;
+    margin: auto;
+    margin-top: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
 }
