@@ -53,7 +53,9 @@ const Todo = ({ todoData = [] }) => {
         />
       </form>
       {/* Incomplete item list*/}
-      <div className="todo-status-text">Incomplete</div>
+      {todoList.length !== 0 && (
+        <div className="todo-status-text">Incomplete</div>
+      )}
       <ul className="todo-list">
         {todoList.map((item) => {
           return (
@@ -69,7 +71,10 @@ const Todo = ({ todoData = [] }) => {
         })}
       </ul>
       {/* Completed item list*/}
-      <div className="todo-status-text">Completed</div>
+
+      {todoList.length !== 0 && (
+        <div className="todo-status-text">Completed</div>
+      )}
       <ul className="todo-list">
         {todoList.map((item) => {
           return (
