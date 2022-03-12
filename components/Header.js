@@ -28,6 +28,7 @@ const Header = () => {
       </Link>
       <nav className="link-container">
         <Link href="/">Home</Link>
+        {!user && <Link href="/demo">Demo</Link>}
         <Link href="/about">About Us</Link>
         {user ? (
           <div>

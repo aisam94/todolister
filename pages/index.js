@@ -28,7 +28,7 @@ const HomePage = () => {
           <main>
             <div className="user-greeting">Hello, Guest !</div>
             <Greeting />
-            <Todo />
+            {/* <Todo /> */}
           </main>
           <Footer />
         </>
