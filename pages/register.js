@@ -58,16 +58,16 @@ const Register = () => {
         );
         break;
       case "auth/invalid-email":
-        return NotificationManager.error("Invalid email format");
+        return NotificationManager.error("Invalid email format", "", 500);
         break;
       case "auth/email-already-in-use":
-        return NotificationManager.error("Email already in use");
+        return NotificationManager.error("Email already in use", "", 500);
         break;
       case "password not matching":
-        return NotificationManager.error("Password not matching");
+        return NotificationManager.error("Password not matching", "", 500);
         break;
       default:
-        return NotificationManager.error("Error registering account");
+        return NotificationManager.error("Error registering account", "", 500);
     }
   };
 
@@ -102,7 +102,6 @@ const Register = () => {
               name="password"
               className="form-field"
               placeholder="Password"
-              value
               value={password}
               onChange={(event) => change(event)}
               required

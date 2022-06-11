@@ -55,7 +55,7 @@ const Login = () => {
   };
 
   const createNotification = (errorMsg) => {
-    return NotificationManager.error(errorMsg);
+    return NotificationManager.error(errorMsg, "", 500);
   };
 
   return (
