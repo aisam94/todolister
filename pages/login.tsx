@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import Link from "next/link";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -9,9 +9,10 @@ import {
   NotificationContainer,
   NotificationManager,
 } from "react-notifications";
+import { NextRouter } from "next/router";
 
 const Login = () => {
-  const router = useRouter();
+  const router: NextRouter = useRouter();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -24,7 +25,7 @@ const Login = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
 
-  const signIn = (email, password) => {
+  const signIn = (email: string, password: string) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -50,16 +51,16 @@ const Login = () => {
       });
   };
 
-  const change = (event) => {
+  const change = (event: { target: HTMLInputElement }): void => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  const submit = (event) => {
+  const submit = (event: FormEvent): void => {
     event.preventDefault();
     signIn(email, password);
   };
 
-  const createNotification = (errorMsg) => {
+  const createNotification = (errorMsg: string): any => {
     return NotificationManager.error(errorMsg, "", 500);
   };
 

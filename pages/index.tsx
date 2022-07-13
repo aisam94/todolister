@@ -3,22 +3,29 @@ import Header from "../components/Header";
 import Todo from "../components/Todo";
 import Greeting from "../components/Greeting";
 import Loading from "../components/Loading";
-
 import { auth, db } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { doc } from "firebase/firestore";
 import { useDocument } from "react-firebase-hooks/firestore";
+import { doc } from "firebase/firestore";
+import { DocumentData, DocumentReference } from "@firebase/firestore";
 
-const HomePage = () => {
+const HomePage = (): JSX.Element => {
   const [user] = useAuthState(auth);
-  const emailName = "";
 
-  const notesRef = user ? doc(db, "notes", user.uid) : null;
+  const notesRef: DocumentReference<DocumentData> | undefined = user
+    ? doc(db, "notes", user.uid)
+    : undefined;
   const [notesSnapshot, loading] = useDocument(notesRef);
-  if (loading) return <Loading />;
-  const todoData = notesSnapshot ? notesSnapshot.data() : [];
 
-  emailName = user ? user.email.substring(0, user.email.lastIndexOf("@")) : "";
+  const todoData: DocumentData | undefined = notesSnapshot
+    ? notesSnapshot.data()
+    : [];
+
+  const emailName: string | undefined = user
+    ? user?.email?.substring(0, user.email.lastIndexOf("@"))
+    : "";
+
+  if (loading) return <Loading />;
 
   return (
     <>
@@ -28,7 +35,6 @@ const HomePage = () => {
           <main>
             <div className="user-greeting">Hello, Guest !</div>
             <Greeting />
-            {/* <Todo /> */}
           </main>
           <Footer />
         </>

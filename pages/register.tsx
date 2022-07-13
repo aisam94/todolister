@@ -1,17 +1,17 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import Link from "next/link";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { createUserWithEmailAndPassword } from "@firebase/auth";
 import { auth } from "../firebase";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import {
   NotificationContainer,
   NotificationManager,
 } from "react-notifications";
 
 const Register = () => {
-  const router = useRouter();
+  const router: NextRouter = useRouter();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isPassword2Visible, setIsPassword2Visible] = useState(false);
   const [formData, setFormData] = useState({
@@ -21,10 +21,9 @@ const Register = () => {
     password2: "",
   });
 
-  // const { username, email, password, password2 } = formData;
   const { email, password, password2 } = formData;
 
-  const createUser = (email, password) => {
+  const createUser = (email: string, password: string) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -47,11 +46,11 @@ const Register = () => {
     setIsPassword2Visible(!isPassword2Visible);
   };
 
-  const change = (event) => {
+  const change = (event: { target: HTMLInputElement }) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  const submit = (event) => {
+  const submit = (event: FormEvent) => {
     event.preventDefault();
     if (password === password2) {
       createUser(email, password);
@@ -60,7 +59,7 @@ const Register = () => {
     }
   };
 
-  const createNotification = (errorMsg) => {
+  const createNotification = (errorMsg: string) => {
     switch (errorMsg) {
       case "auth/weak-password":
         return NotificationManager.error(

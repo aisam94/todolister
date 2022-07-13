@@ -1,20 +1,41 @@
-import React, { useState } from "react";
+import React, {
+  useState,
+  MouseEvent,
+  ChangeEvent,
+  SetStateAction,
+} from "react";
+import { DocumentData } from "@firebase/firestore";
 
-const TodoItem = ({ item, todoList, setTodoData, updateList }) => {
+interface todoItemProps {
+  item: DocumentData;
+  todoList: DocumentData[];
+  setTodoData: React.Dispatch<SetStateAction<DocumentData[]>>;
+  updateList: (newList: DocumentData[]) => void;
+}
+
+const TodoItem = ({
+  item,
+  todoList,
+  setTodoData,
+  updateList,
+}: todoItemProps) => {
   const [todoinput2, setFormData2] = useState("");
 
-  const toggleCheckbox = (event) => {
+  const toggleCheckbox = (event: { target: HTMLInputElement }) => {
     const id = event.target.getAttribute("id");
-    const item = todoList.find((item) => item.id === id);
+    const item: DocumentData | undefined = todoList.find(
+      (item) => item.id === id
+    );
+    if (!item) return;
     item.checked = !item.checked;
     setTodoData([...todoList]);
     updateList(todoList);
   };
 
-  const editTodo = (event) => {
+  const editTodo = (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
     const id = event.target.getAttribute("id");
-    const text = todoinput2.trim();
+    let text = todoinput2.trim();
     const editedTodo = todoList.map((item) => {
       if (id === item.id) {
         text = text !== "" ? text : item.text;
@@ -24,23 +45,25 @@ const TodoItem = ({ item, todoList, setTodoData, updateList }) => {
     });
     setTodoData(editedTodo);
     setFormData2("");
-
     updateList(editedTodo);
   };
 
-  const change2 = (event) => {
+  const change2 = (event: { target: HTMLInputElement }) => {
     setFormData2(event.target.value);
   };
 
-  const toggleEdit = (event) => {
-    const id = event.target.getAttribute("id");
+  const toggleEdit = (event: MouseEvent) => {
+    const el = event.target as HTMLInputElement;
+    const id = el.getAttribute("id");
     const item = todoList.find((item) => item.id === id);
+    if (!item) return;
     item.isEditing = !item.isEditing;
     setTodoData([...todoList]);
   };
 
-  const deleteTodo = (event) => {
-    const id = event.target.getAttribute("id");
+  const deleteTodo = (event: MouseEvent) => {
+    const el = event.target as HTMLInputElement;
+    const id = el.getAttribute("id");
     const newList = todoList.filter((item) => item.id !== id);
     setTodoData(todoList.filter((item) => item.id !== id));
     updateList(newList);

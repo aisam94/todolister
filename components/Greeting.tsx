@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const Greeting = () => {
+const Greeting = (): JSX.Element => {
   return (
     <article className="greeting">
       <h2 className="big-greeting">Create a todo list!</h2>

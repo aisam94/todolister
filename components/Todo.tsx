@@ -1,38 +1,53 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { nanoid } from "nanoid";
 import { doc, setDoc } from "firebase/firestore";
+import { DocumentData } from "@firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
-import TodoItem from "../components/TodoItem";
+import TodoItem from "./TodoItem";
 
-const Todo = ({ todoData = [] }) => {
+interface todoProps {
+  todoData: DocumentData[] | undefined;
+}
+
+interface newItemType {
+  text: string;
+  checked: boolean;
+  id: string;
+  isEditing: boolean;
+}
+
+const Todo = ({ todoData = [] }: todoProps) => {
   const [user] = useAuthState(auth);
   const [todoinput, setFormData] = useState("");
   const [todoList, setTodoData] = useState(todoData);
 
-  const change = (event) => {
+  const change = (event: { target: HTMLInputElement }) => {
     setFormData(event.target.value);
   };
 
-  const addTodo = (event) => {
+  const addTodo = (event: FormEvent) => {
     event.preventDefault();
     const text = todoinput.trim();
+    let newItem: newItemType;
     if (text !== "") {
-      const newItem = {
+      // if text is not empty create new item obj
+      newItem = {
         text: text,
         checked: false,
         id: nanoid(),
         isEditing: false,
       };
-
+      // add item obj to todo list and empty form
       setTodoData([...todoList, newItem]);
       setFormData("");
     }
-    const newList = [...todoList, newItem];
+    // const newList = [...todoList, newItem];
+    const newList = [...todoList];
     updateList(newList);
   };
 
-  const updateList = (newList) => {
+  const updateList = (newList: DocumentData[]) => {
     if (user) {
       setDoc(doc(db, "notes", user.uid), { todo: newList }, { merge: true });
     }

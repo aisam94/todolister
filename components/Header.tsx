@@ -1,12 +1,11 @@
 import Link from "next/link";
-
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { signOut } from "@firebase/auth";
 import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const Header = () => {
-  const router = useRouter();
+  const router: NextRouter = useRouter();
   const [user] = useAuthState(auth);
 
   const logOut = () => {
