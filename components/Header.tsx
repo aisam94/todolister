@@ -23,23 +23,35 @@ const Header = () => {
   return (
     <header>
       <Link href="/">
-        <div className='header-title'>
+        <div className="header-title cursor-pointer">
           <img className="icon" src="/todolister.svg" />
-          <h1 className="logo">TODOLISTER</h1>
+          <h1 className="logo text-2xl">TODOLISTER</h1>
         </div>
       </Link>
-      <nav className="link-container text-white">
-        <Link href="/">Home</Link>
-        {!user && <Link href="/demo">Demo</Link>}
-        <Link href="/about">About Us</Link>
+      <nav className="link-container">
+        <Link href="/">
+          <div className="header-link">Home</div>
+        </Link>
+        {!user && (
+          <Link href="/demo">
+            <div className="header-link">Demo</div>
+          </Link>
+        )}
+        <Link href="/about">
+          <div className="header-link">About Us</div>
+        </Link>
         {user ? (
           <div>
             <a onClick={logOut}>Log Out</a>
           </div>
         ) : (
-          <div className="text-red-500">
-            <Link href="/login">Log In</Link>
-            <Link href="/register">Sign Up</Link>
+          <div className="text-primary">
+            <Link href="/login">
+              <span className="header-link-auth hover:bg-white">Login</span>
+            </Link>
+            <Link href="/register">
+              <span className="header-link-auth hover:bg-white">Register</span>
+            </Link>
           </div>
         )}
       </nav>

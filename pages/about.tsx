@@ -7,11 +7,11 @@ const About: NextPage = () => {
     <>
       <Header />
       <main className="about-container">
-        <h1 className="about-title"> About Us </h1>
-        <p className="about-paragraph">
+        <h1 className="about-title text-primary font-bold text-xl"> About Us </h1>
+        <p className="about-paragraph text-justify">
           This website offer users to create their own personalised todo lists.
           Users can create an account in less than a minute and sign in to start
-          making their todo list.Every todo list that has been created will be
+          making their todo list. Every todo list that has been created will be
           saved and can be viewed again after logging in.
         </p>
       </main>
