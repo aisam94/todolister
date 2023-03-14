@@ -8,6 +8,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { doc } from "firebase/firestore";
 import { DocumentData, DocumentReference } from "@firebase/firestore";
+import Head from "next/head";
 
 const HomePage = (): JSX.Element => {
   const [user] = useAuthState(auth);
@@ -29,6 +30,28 @@ const HomePage = (): JSX.Element => {
 
   return (
     <>
+      <Head>
+        <title>Todolister</title>
+        <meta name="description" content="Todolister" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+      </Head>
       {!user ? (
         <>
           <Header />
