@@ -23,7 +23,10 @@ const Header = () => {
   return (
     <header>
       <Link href="/">
-        <h1 className="logo">TODOLISTER</h1>
+        <div className='header-title'>
+          <img className="icon" src="/todolister.svg" />
+          <h1 className="logo">TODOLISTER</h1>
+        </div>
       </Link>
       <nav className="link-container">
         <Link href="/">Home</Link>

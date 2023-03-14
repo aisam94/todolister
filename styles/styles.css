@@ -33,7 +33,6 @@ h3 {
 
 .logo {
   color: white;
-  margin: auto 1em;
   cursor: pointer;
 }
 
@@ -400,4 +399,19 @@ form input {
   width: 1.2rem;
   height: 1.2rem;
   color: gray;
+}
+
+.icon {
+  height: 2rem;
+  width: 2rem;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  margin-left:1rem;
+}
+
+.header-title * {
+  margin-left: .1rem;
 }
