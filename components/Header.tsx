@@ -28,7 +28,7 @@ const Header = () => {
           <h1 className="logo">TODOLISTER</h1>
         </div>
       </Link>
-      <nav className="link-container">
+      <nav className="link-container text-white">
         <Link href="/">Home</Link>
         {!user && <Link href="/demo">Demo</Link>}
         <Link href="/about">About Us</Link>
@@ -37,7 +37,7 @@ const Header = () => {
             <a onClick={logOut}>Log Out</a>
           </div>
         ) : (
-          <div>
+          <div className="text-red-500">
             <Link href="/login">Log In</Link>
             <Link href="/register">Sign Up</Link>
           </div>
