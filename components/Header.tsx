@@ -38,19 +38,19 @@ const Header = () => {
           </Link>
         )}
         <Link href="/about">
-          <div className="header-link">About Us</div>
+          <div className="header-link">About</div>
         </Link>
         {user ? (
           <div>
             <a onClick={logOut}>Log Out</a>
           </div>
         ) : (
-          <div className="text-primary">
+          <div className="text-primary p-0">
             <Link href="/login">
-              <span className="header-link-auth hover:bg-white">Login</span>
+              <span className="header-link-auth hover:bg-accent">Login</span>
             </Link>
             <Link href="/register">
-              <span className="header-link-auth hover:bg-white">Register</span>
+              <span className="header-link-auth hover:bg-accent">Register</span>
             </Link>
           </div>
         )}

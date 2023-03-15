@@ -1,5 +1,3 @@
-import Footer from "../components/Footer";
-import Header from "../components/Header";
 import Todo from "../components/Todo";
 import Greeting from "../components/Greeting";
 import Loading from "../components/Loading";
@@ -8,7 +6,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useDocument } from "react-firebase-hooks/firestore";
 import { doc } from "firebase/firestore";
 import { DocumentData, DocumentReference } from "@firebase/firestore";
-import Head from "next/head";
 
 const HomePage = (): JSX.Element => {
   const [user] = useAuthState(auth);
@@ -29,49 +26,19 @@ const HomePage = (): JSX.Element => {
   if (loading) return <Loading />;
 
   return (
-    <>
-      <Head>
-        <title>Todolister</title>
-        <meta name="description" content="Todolister" />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-      </Head>
+    <div className="page-width-container">
       {!user ? (
-        <>
-          <Header />
-          <main>
-            <div className="user-greeting">Hello, Guest !</div>
-            <Greeting />
-          </main>
-          <Footer />
-        </>
+        <div className="flex flex-col items-center">
+          <div className="user-greeting">Hello, Guest !</div>
+          <Greeting />
+        </div>
       ) : (
-        <>
-          <Header />
-          <main>
-            <div className="user-greeting">Hello, {emailName} !</div>
-            <Todo todoData={todoData ? todoData.todo : []} />
-          </main>
-          <Footer />
-        </>
+        <div>
+          <div className="user-greeting">Hello, {emailName} !</div>
+          <Todo todoData={todoData ? todoData.todo : []} />
+        </div>
       )}
-    </>
+    </div>
   );
 };
 

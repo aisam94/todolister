@@ -10,6 +10,8 @@
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   background: #d8d5d2;
 }
 
@@ -44,22 +46,27 @@ h3 {
   align-items: center;
   right: 0;
   position: absolute;
+  height: 100%;
 }
 
-.header-link{
+.link-container * {
+  margin-right: 1rem;
+}
+
+.header-link {
   color: #f2f2f2;
   text-align: center;
-  padding: 14px 16px;
   text-decoration: none;
-  font-size: 1.3em;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
   cursor: pointer;
 }
 
-.header-link-auth{
+.header-link-auth {
   text-align: center;
-  padding: 14px 16px;
   text-decoration: none;
-  font-size: 1.3em;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
   cursor: pointer;
 }
 
@@ -73,14 +80,16 @@ nav a:active {
   color: white;
 }
 .greeting {
-  margin-top: 6em;
-  width: 30%;
+  margin-top: 1rem;
+  max-width: 420px;
+  /* width: 30%; */
 }
 
 main {
   display: flex;
+  flex-grow: 1;
   justify-content: space-around;
-  margin-bottom: 3em;
+  background: #d8d5d2;
 }
 
 .big-greeting {
@@ -113,7 +122,7 @@ main {
 }
 
 .todo-container {
-  margin-top: 6em;
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -219,7 +228,7 @@ footer {
   right: 0;
   width: 100%;
   /* height: 3em; */
-  position: fixed;
+  /* position: fixed; */
   padding: 0.5em;
   text-align: end;
   font-size: 0.75rem;
@@ -420,9 +429,20 @@ form input {
 .header-title {
   display: flex;
   align-items: center;
-  margin-left:1rem;
+  margin-left: 1rem;
 }
 
 .header-title * {
-  margin-left: .1rem;
+  margin-left: 0.1rem;
+}
+
+.test {
+  height: 2000px;
+}
+
+.page-width-container {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 960px;
+  justify-content: center;
 }
