@@ -238,15 +238,16 @@ footer {
 
 /* login/register page */
 .login-main {
+  margin-right: auto;
+  margin-left: auto;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 6em); /*to accomodate header and footer height*/
+  max-width:400px;
 }
 
 .form-container {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
   margin: auto;
   padding: 2.4em 1em;
