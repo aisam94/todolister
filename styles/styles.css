@@ -142,11 +142,6 @@ main {
   font-weight: bold;
 }
 
-.todo-status-text {
-  font-weight: bold;
-  text-decoration: underline;
-}
-
 .todo-list {
   width: 100%;
   overflow-wrap: break-word;

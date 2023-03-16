@@ -71,18 +71,20 @@ const Todo = ({ todoData = [] }: todoProps) => {
   return (
     <Box className="todo-container">
       <h1 className="todo-title">Todo List</h1>
-      <form className="todo-form flex items-center" onSubmit={addTodo}>
-        <Input
-          autoFocus
-          type="text"
-          placeholder="Enter new item here.."
-          value={todoinput}
-          onChange={change}
-          backgroundColor="white"
-          borderRadius="10px"
-          borderColor="#333"
-          borderWidth="2px"
-        />
+      <div className="flex w-full">
+        <form className="todo-form flex items-center" onSubmit={addTodo}>
+          <Input
+            autoFocus
+            type="text"
+            placeholder="Enter new item here.."
+            value={todoinput}
+            onChange={change}
+            backgroundColor="white"
+            borderRadius="10px"
+            borderColor="#333"
+            borderWidth="2px"
+          />
+        </form>
         <Popover placement="right">
           <PopoverTrigger>
             <button className="ml-2">
@@ -108,10 +110,12 @@ const Todo = ({ todoData = [] }: todoProps) => {
             </PopoverBody>
           </PopoverContent>
         </Popover>
-      </form>
+      </div>
       {/* Incomplete item list*/}
       {todoList.length !== 0 && (
-        <div className="todo-status-text">Incomplete</div>
+        <Box className="uppercase bg-secondary text-white font-bold py-1 px-3">
+          incomplete
+        </Box>
       )}
       <ul className="todo-list">
         {todoList.map((item, index) => {
@@ -131,7 +135,9 @@ const Todo = ({ todoData = [] }: todoProps) => {
 
       {/* Completed item list*/}
       {todoList.length !== 0 && (
-        <div className="todo-status-text">Completed</div>
+        <Box className="uppercase bg-secondary text-white font-bold py-1 px-3">
+          completed
+        </Box>
       )}
       <ul className="todo-list">
         {todoList.map((item) => {
