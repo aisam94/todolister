@@ -1,10 +1,11 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 import { doc, setDoc } from "firebase/firestore";
 import { DocumentData } from "@firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
 import TodoItem from "./TodoItem";
+import { Box, Input } from "@chakra-ui/react";
 
 interface todoProps {
   todoData: DocumentData[] | undefined;
@@ -20,7 +21,7 @@ interface newItemType {
 const Todo = ({ todoData = [] }: todoProps) => {
   const [user] = useAuthState(auth);
   const [todoinput, setFormData] = useState("");
-  const [todoList, setTodoData] = useState(todoData);
+  const [todoList, setTodoData] = useState<DocumentData[]>([]);
 
   const change = (event: { target: HTMLInputElement }) => {
     setFormData(event.target.value);
@@ -53,18 +54,24 @@ const Todo = ({ todoData = [] }: todoProps) => {
     }
   };
 
+  useEffect(() => {
+    setTodoData(todoData);
+  }, []);
+
   return (
-    <div className="todo-container">
+    <Box className="todo-container">
       <h1 className="todo-title">Todo List</h1>
       <form className="todo-form" onSubmit={addTodo}>
-        <input
+        <Input
           autoFocus
           type="text"
-          aria-label="Enter new item"
-          placeholder="Enter new item here..."
-          className="todo-input"
+          placeholder="Enter new item here.."
           value={todoinput}
           onChange={change}
+          backgroundColor="white"
+          borderRadius="10px"
+          borderColor="#333"
+          borderWidth="2px"
         />
       </form>
       {/* Incomplete item list*/}
@@ -72,10 +79,11 @@ const Todo = ({ todoData = [] }: todoProps) => {
         <div className="todo-status-text">Incomplete</div>
       )}
       <ul className="todo-list">
-        {todoList.map((item) => {
+        {todoList.map((item, index) => {
           return (
             !item.checked && (
               <TodoItem
+                key={index}
                 item={item}
                 todoList={todoList}
                 setTodoData={setTodoData}
@@ -85,8 +93,8 @@ const Todo = ({ todoData = [] }: todoProps) => {
           );
         })}
       </ul>
-      {/* Completed item list*/}
 
+      {/* Completed item list*/}
       {todoList.length !== 0 && (
         <div className="todo-status-text">Completed</div>
       )}
@@ -95,6 +103,7 @@ const Todo = ({ todoData = [] }: todoProps) => {
           return (
             item.checked && (
               <TodoItem
+                key={item.id}
                 item={item}
                 todoList={todoList}
                 setTodoData={setTodoData}
@@ -104,7 +113,7 @@ const Todo = ({ todoData = [] }: todoProps) => {
           );
         })}
       </ul>
-    </div>
+    </Box>
   );
 };
 

@@ -41,11 +41,14 @@ const Header = () => {
           <div className="header-link">About</div>
         </Link>
         {user ? (
-          <div>
-            <a onClick={logOut}>Log Out</a>
+          <div
+            className="header-link-auth text-primary hover:bg-accent"
+            onClick={logOut}
+          >
+            Logout
           </div>
         ) : (
-          <div className="text-primary p-0">
+          <div className="text-primary">
             <Link href="/login">
               <span className="header-link-auth hover:bg-accent">Login</span>
             </Link>

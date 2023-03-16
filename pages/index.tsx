@@ -33,7 +33,7 @@ const HomePage = (): JSX.Element => {
           <Greeting />
         </div>
       ) : (
-        <div>
+        <div className="w-full flex justify-center">
           <div className="user-greeting">Hello, {emailName} !</div>
           <Todo todoData={todoData ? todoData.todo : []} />
         </div>
