@@ -5,7 +5,17 @@ import { DocumentData } from "@firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
 import TodoItem from "./TodoItem";
-import { Box, Input } from "@chakra-ui/react";
+import {
+  Box,
+  Input,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+} from "@chakra-ui/react";
 
 interface todoProps {
   todoData: DocumentData[] | undefined;
@@ -61,7 +71,7 @@ const Todo = ({ todoData = [] }: todoProps) => {
   return (
     <Box className="todo-container">
       <h1 className="todo-title">Todo List</h1>
-      <form className="todo-form" onSubmit={addTodo}>
+      <form className="todo-form flex items-center" onSubmit={addTodo}>
         <Input
           autoFocus
           type="text"
@@ -73,6 +83,31 @@ const Todo = ({ todoData = [] }: todoProps) => {
           borderColor="#333"
           borderWidth="2px"
         />
+        <Popover placement="right">
+          <PopoverTrigger>
+            <button className="ml-2">
+              <img
+                className="w-5 h-5 cursor-pointer hover:scale-110"
+                src="/info-circle.svg"
+              />
+            </button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <PopoverArrow bgColor={"#333"} />
+            <PopoverCloseButton textColor="whiteAlpha.50" />
+            <PopoverHeader className="text-white bg-secondary flex justify-center">
+              Information
+            </PopoverHeader>
+            <PopoverBody className="text-white bg-secondary">
+              <li className="ml-2">
+                Add new todo item by writing inside the input.
+              </li>
+              <li className="ml-2">
+                You can edit the item by clicking the text itself.
+              </li>
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
       </form>
       {/* Incomplete item list*/}
       {todoList.length !== 0 && (

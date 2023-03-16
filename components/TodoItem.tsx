@@ -63,7 +63,7 @@ const TodoItem = ({
   };
 
   return (
-    <li className="flex items-center max-w-full" key={item.id}>
+    <li className="flex items-center max-w-full min-w-0" key={item.id}>
       <Checkbox
         isChecked={item.checked}
         marginRight="3"

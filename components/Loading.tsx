@@ -1,9 +1,14 @@
-import { ClipLoader } from "react-spinners";
+import { CircularProgress } from "@chakra-ui/react";
 
 const Loading = (): JSX.Element => {
   return (
-    <div className="loader">
-      <ClipLoader color="#eb1234" loading={true} size={150} />
+    <div className="loader h-full">
+      <CircularProgress
+        isIndeterminate
+        size={140}
+        color="#eb1234"
+        trackColor="white"
+      />
     </div>
   );
 };

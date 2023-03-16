@@ -1,5 +1,4 @@
 import "../styles/styles.css";
-import "react-notifications/lib/notifications.css";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
 import Loading from "../components/Loading";
