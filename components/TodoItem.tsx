@@ -11,6 +11,7 @@ import {
   Editable,
   EditableInput,
   EditablePreview,
+  EditableTextarea,
 } from "@chakra-ui/react";
 
 interface todoItemProps {
@@ -62,7 +63,7 @@ const TodoItem = ({
   };
 
   return (
-    <li className="flex" key={item.id}>
+    <li className="flex items-center max-w-full" key={item.id}>
       <Checkbox
         isChecked={item.checked}
         marginRight="3"
@@ -72,17 +73,20 @@ const TodoItem = ({
         borderColor="black"
         size="lg"
       ></Checkbox>
-      <div className="text-left flex-grow">
+      <div className="text-left flex-1 min-w-0">
         <Editable
           defaultValue={item.text}
           onSubmit={(e) => editTodo(e, item.id)}
+          marginRight={2}
+          className='flex items-center'
         >
           <EditablePreview
+          className="truncate"
             style={{
               textDecoration: item.checked ? "line-through" : "none",
             }}
           />
-          <EditableInput />
+          <EditableInput className="p-1"/>
         </Editable>
       </div>
 
