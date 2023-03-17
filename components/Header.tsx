@@ -20,14 +20,21 @@ const Header = () => {
       });
   };
 
+  const emailName: string | undefined = user
+    ? user?.email?.substring(0, user.email.lastIndexOf("@"))
+    : "";
+
   return (
-    <header>
+    <header className="flex ">
       <Link href="/">
         <div className="header-title cursor-pointer">
           <img className="icon" src="/todolister.svg" />
           <h1 className="logo text-2xl">TODOLISTER</h1>
         </div>
       </Link>
+      <div className="max-sm:hidden text-white uppercase text-xl absolute w-full text-center">
+        {emailName}
+      </div>
       <nav className="link-container">
         <Link href="/">
           <div className="header-link">Home</div>

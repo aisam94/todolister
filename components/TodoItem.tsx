@@ -22,7 +22,6 @@ const TodoItem = ({
   setTodoData,
   updateList,
 }: todoItemProps) => {
-  const [todoinput2, setFormData2] = useState("");
 
   const toggleCheckbox = (event: { target: HTMLInputElement }) => {
     const id = event.target.getAttribute("id");
@@ -45,7 +44,6 @@ const TodoItem = ({
       return item;
     });
     setTodoData(editedTodo);
-    setFormData2("");
     updateList(editedTodo);
   };
 
@@ -81,7 +79,7 @@ const TodoItem = ({
               textDecoration: item.checked ? "line-through" : "none",
             }}
           />
-          <EditableInput className="p-1" />
+          <EditableInput bgColor={'white'} className="p-1 bg-white" />
         </Editable>
       </div>
 

@@ -19,22 +19,16 @@ const HomePage = (): JSX.Element => {
     ? notesSnapshot.data()
     : [];
 
-  const emailName: string | undefined = user
-    ? user?.email?.substring(0, user.email.lastIndexOf("@"))
-    : "";
-
   if (loading) return <Loading />;
 
   return (
     <div className="page-width-container">
       {!user ? (
         <div className="flex flex-col items-center">
-          <div className="user-greeting">Hello, Guest !</div>
           <Greeting />
         </div>
       ) : (
         <div className="w-full flex justify-center">
-          <div className="user-greeting">Hello, {emailName} !</div>
           <Todo todoData={todoData ? todoData.todo : []} />
         </div>
       )}
