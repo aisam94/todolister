@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 import { doc, setDoc } from "firebase/firestore";
-import { DocumentData } from "@firebase/firestore";
+import { DocumentData, Timestamp } from "@firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
 import TodoItem from "./TodoItem";
@@ -16,16 +16,10 @@ import {
   PopoverHeader,
   PopoverTrigger,
 } from "@chakra-ui/react";
+import { TodoItem as TodoItemType } from "../types/todo";
 
 interface todoProps {
   todoData: DocumentData[] | undefined;
-}
-
-interface newItemType {
-  text: string;
-  checked: boolean;
-  id: string;
-  isEditing: boolean;
 }
 
 const Todo = ({ todoData = [] }: todoProps) => {
@@ -40,14 +34,15 @@ const Todo = ({ todoData = [] }: todoProps) => {
   const addTodo = (event: FormEvent) => {
     event.preventDefault();
     const text = todoinput.trim();
-    let newItem: newItemType;
+    let newItem: TodoItemType;
     if (text !== "") {
       // if text is not empty create new item obj
+      // maybe need to check if id is already created
       newItem = {
         text: text,
         checked: false,
         id: nanoid(),
-        isEditing: false,
+        createdAt: Timestamp.now(),
       };
       // add item obj to todo list and empty form
       setTodoData([...todoList, newItem]);
@@ -113,7 +108,7 @@ const Todo = ({ todoData = [] }: todoProps) => {
       </div>
       {/* Incomplete item list*/}
       {todoList.length !== 0 && (
-        <Box className="uppercase bg-secondary text-white font-bold py-1 px-3">
+        <Box className="uppercase bg-secondary text-white font-bold py-1 px-3 mb-1">
           incomplete
         </Box>
       )}
@@ -135,7 +130,7 @@ const Todo = ({ todoData = [] }: todoProps) => {
 
       {/* Completed item list*/}
       {todoList.length !== 0 && (
-        <Box className="uppercase bg-secondary text-white font-bold py-1 px-3">
+        <Box className="uppercase bg-secondary text-white font-bold py-1 px-3 mb-1">
           completed
         </Box>
       )}

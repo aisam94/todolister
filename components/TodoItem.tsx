@@ -1,9 +1,5 @@
-import React, {
-  useState,
-  MouseEvent,
-  SetStateAction,
-} from "react";
-import { DocumentData } from "@firebase/firestore";
+import React, { useState, MouseEvent, SetStateAction } from "react";
+import { DocumentData, Timestamp } from "@firebase/firestore";
 import {
   Button,
   ButtonGroup,
@@ -11,7 +7,6 @@ import {
   Editable,
   EditableInput,
   EditablePreview,
-  EditableTextarea,
 } from "@chakra-ui/react";
 
 interface todoItemProps {
@@ -45,7 +40,7 @@ const TodoItem = ({
     const editedTodo = todoList.map((item) => {
       if (id === item.id) {
         text = text !== "" ? text : item.text;
-        return { ...item, text: text, isEditing: false };
+        return { ...item, text: text, updatedAt: Timestamp.now() };
       }
       return item;
     });
@@ -78,15 +73,15 @@ const TodoItem = ({
           defaultValue={item.text}
           onSubmit={(e) => editTodo(e, item.id)}
           marginRight={2}
-          className='flex items-center'
+          className="flex items-center"
         >
           <EditablePreview
-          className="truncate"
+            className="truncate"
             style={{
               textDecoration: item.checked ? "line-through" : "none",
             }}
           />
-          <EditableInput className="p-1"/>
+          <EditableInput className="p-1" />
         </Editable>
       </div>
 

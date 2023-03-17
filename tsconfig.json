@@ -25,7 +25,6 @@
     "**/*.ts",
     "**/*.tsx",
     "**/**/*.ts",
-    "react-notifications.d.ts"
   ],
   "exclude": [
     "node_modules"
