@@ -22,7 +22,7 @@ const HomePage = (): JSX.Element => {
   if (loading) return <Loading />;
 
   return (
-    <div className="page-width-container">
+    <div>
       {!user ? (
         <div className="flex flex-col items-center">
           <Greeting />

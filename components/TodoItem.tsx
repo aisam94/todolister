@@ -8,33 +8,40 @@ import {
   EditableInput,
   EditablePreview,
 } from "@chakra-ui/react";
+import { TodoItem as TodoItemType } from "../types/todo";
 
 interface todoItemProps {
   item: DocumentData;
-  todoList: DocumentData[];
-  setTodoData: React.Dispatch<SetStateAction<DocumentData[]>>;
+  todoList: TodoItemType[];
+  setTodoList: React.Dispatch<SetStateAction<TodoItemType[]>>;
   updateList: (newList: DocumentData[]) => void;
+  currentDrawer: any;
+  setCurrentDrawer: any;
 }
 
 const TodoItem = ({
   item,
   todoList,
-  setTodoData,
+  setTodoList,
   updateList,
+  currentDrawer,
+  setCurrentDrawer,
 }: todoItemProps) => {
-
-  const toggleCheckbox = (event: { target: HTMLInputElement }) => {
-    const id = event.target.getAttribute("id");
-    const item: DocumentData | undefined = todoList.find(
-      (item) => item.id === id
-    );
-    if (!item) return;
-    item.checked = !item.checked;
-    setTodoData([...todoList]);
-    updateList(todoList);
+  const toggleCheckbox = () => {
+    const id = item.id;
+    const editedTodo = todoList.map((item) => {
+      if (id === item.id) {
+        item.checked = !item.checked;
+        item.updatedAt = Timestamp.now();
+      }
+      return item;
+    });
+    setTodoList(editedTodo);
+    updateList(editedTodo);
   };
 
-  const editTodo = (value: string, id: string) => {
+  const editTodo = (value: string) => {
+    const id = item.id;
     let text = value.trim();
     const editedTodo = todoList.map((item) => {
       if (id === item.id) {
@@ -43,20 +50,28 @@ const TodoItem = ({
       }
       return item;
     });
-    setTodoData(editedTodo);
+    setTodoList(editedTodo);
     updateList(editedTodo);
   };
 
-  const deleteTodo = (event: MouseEvent) => {
-    const el = event.target as HTMLInputElement;
-    const id = el.getAttribute("id");
+  const deleteTodo = () => {
+    const id = item.id;
     const newList = todoList.filter((item) => item.id !== id);
-    setTodoData(todoList.filter((item) => item.id !== id));
+    setTodoList(newList);
     updateList(newList);
   };
 
+  function handleShowDrawer() {
+    setCurrentDrawer(item.id);
+  }
+
   return (
-    <li className="flex items-center max-w-full min-w-0" key={item.id}>
+    <li
+      className={`flex items-center max-w-full min-w-0 ${
+        currentDrawer === item.id && "bg-accent-focus"
+      }`}
+      key={item.id}
+    >
       <Checkbox
         isChecked={item.checked}
         marginRight="3"
@@ -69,7 +84,7 @@ const TodoItem = ({
       <div className="text-left flex-1 min-w-0">
         <Editable
           defaultValue={item.text}
-          onSubmit={(e) => editTodo(e, item.id)}
+          onSubmit={(e) => editTodo(e)}
           marginRight={2}
           className="flex items-center"
         >
@@ -79,12 +94,24 @@ const TodoItem = ({
               textDecoration: item.checked ? "line-through" : "none",
             }}
           />
-          <EditableInput bgColor={'white'} className="p-1 bg-white" />
+          <EditableInput bgColor={"white"} className="p-1 bg-white" />
         </Editable>
       </div>
-
       <ButtonGroup className="" variant="solid" spacing={4} alignItems="center">
-        <Button colorScheme="red" id={item.id} onClick={deleteTodo}>
+        <Button
+          padding={"0"}
+          colorScheme="blue"
+          id={item.id}
+          onClick={handleShowDrawer}
+        >
+          <img className="h-5 w-5" src="/more-vertical-svgrepo-com.svg" />
+        </Button>
+        <Button
+          padding="0"
+          colorScheme="red"
+          id={item.id}
+          onClick={deleteTodo}
+        >
           <img className="h-5 w-5" src="/x.svg" />
         </Button>
       </ButtonGroup>
