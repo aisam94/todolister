@@ -66,8 +66,13 @@ const TodoItemDrawer = ({
     console.log(tags);
 
     e.preventDefault();
-    if (!tags) return;
-    const newTags = [...tags, inputTag];
+    let currentTags: string[];
+    if (!tags) {
+      currentTags = [];
+    } else {
+      currentTags = tags;
+    }
+    const newTags = [...currentTags, inputTag];
     setTags(newTags);
     setInputTag("");
 
@@ -130,11 +135,7 @@ const TodoItemDrawer = ({
     setDueDate(todo.dueDate);
     setPriority(todo.priority);
     setDescription(todo.description);
-    if (!todo.tags) {
-      setTags([]);
-    } else {
-      setTags(todo.tags);
-    }
+    setTags(todo.tags);
   }, [todo]);
 
   return (
@@ -147,7 +148,7 @@ const TodoItemDrawer = ({
         <Input
           type="date"
           variant="filled"
-          value={dueDate ?? ''}
+          value={dueDate ?? ""}
           onChange={handleDate}
         />
       </div>
