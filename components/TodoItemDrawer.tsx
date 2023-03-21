@@ -10,11 +10,12 @@ import {
 } from "@chakra-ui/react";
 import { Timestamp } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { TodoItem as TodoItemType } from "../types/todo";
 
 type TodoItemDrawerProps = {
   todo: any;
   updateList: any;
-  todoList: any;
+  todoList: TodoItemType[];
   setTodoList: any;
 };
 
@@ -33,7 +34,7 @@ const TodoItemDrawer = ({
   function handlePriority(priority: string) {
     // setPriority(priority);
 
-    const editedTodo = todoList.map((item: any) => {
+    const editedTodo = todoList.map((item: TodoItemType) => {
       if (todo.id === item.id) {
         return { ...item, priority: priority, updatedAt: Timestamp.now() };
       }
@@ -43,11 +44,11 @@ const TodoItemDrawer = ({
     updateList(editedTodo);
   }
 
-  function handleDescription(e: any) {
-    const description = e.target.value;
+  function handleDescription(value: string) {
+    const description = value;
     setDescription(description);
 
-    const editedTodo = todoList.map((item: any) => {
+    const editedTodo = todoList.map((item: TodoItemType) => {
       if (todo.id === item.id) {
         return {
           ...item,
@@ -62,9 +63,6 @@ const TodoItemDrawer = ({
   }
 
   function addTags(e: any) {
-    console.log("tags");
-    console.log(tags);
-
     e.preventDefault();
     let currentTags: string[];
     if (!tags) {
@@ -76,7 +74,7 @@ const TodoItemDrawer = ({
     setTags(newTags);
     setInputTag("");
 
-    const editedTodo = todoList.map((item: any) => {
+    const editedTodo = todoList.map((item: TodoItemType) => {
       if (todo.id === item.id) {
         return {
           ...item,
@@ -90,8 +88,8 @@ const TodoItemDrawer = ({
     updateList(editedTodo);
   }
 
-  function handleInputTag(e: any) {
-    setInputTag(e.target.value);
+  function handleInputTag(value: string) {
+    setInputTag(value);
   }
 
   function removeTag(index: number) {
@@ -99,7 +97,7 @@ const TodoItemDrawer = ({
     const newTags = tags.filter((_, i) => i != index);
     setTags(newTags);
 
-    const editedTodo = todoList.map((item: any) => {
+    const editedTodo = todoList.map((item: TodoItemType) => {
       if (todo.id === item.id) {
         return {
           ...item,
@@ -113,11 +111,11 @@ const TodoItemDrawer = ({
     updateList(editedTodo);
   }
 
-  function handleDate(e: any) {
-    const dueDate = e.target.value;
+  function handleDate(value: string) {
+    const dueDate = value;
     // setDueDate(dueDate);
 
-    const editedTodo = todoList.map((item: any) => {
+    const editedTodo = todoList.map((item: TodoItemType) => {
       if (todo.id === item.id) {
         return {
           ...item,
@@ -149,7 +147,7 @@ const TodoItemDrawer = ({
           type="date"
           variant="filled"
           value={dueDate ?? ""}
-          onChange={handleDate}
+          onChange={(e) => handleDate(e.target.value)}
         />
       </div>
       <Divider className="my-2" />
@@ -202,7 +200,7 @@ const TodoItemDrawer = ({
         <Input
           value={inputTag}
           variant="filled"
-          onChange={handleInputTag}
+          onChange={(e) => handleInputTag(e.target.value)}
           placeholder="Add tags here..."
         />
       </form>
@@ -226,7 +224,7 @@ const TodoItemDrawer = ({
       <Textarea
         className="flex-grow mt-2 mb-6"
         value={description ?? ""}
-        onChange={handleDescription}
+        onChange={(e) => handleDescription(e.target.value)}
         placeholder="Enter todo description here..."
         variant={"filled"}
       />

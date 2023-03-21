@@ -27,13 +27,14 @@ const Todo = ({ todoData = [] }: todoProps) => {
   const [user] = useAuthState(auth);
   const [todoinput, setFormData] = useState("");
   const [todoList, setTodoList] = useState<TodoItemType[]>([]);
-  const [currentDrawer, setCurrentDrawer] = useState();
+  const [currentDrawerId, setCurrentDrawerId] = useState<string | undefined>();
 
   const change = (event: { target: HTMLInputElement }) => {
     setFormData(event.target.value);
   };
 
-  function getTodoItem(id: any) {
+  function getTodoItem(id: string | undefined) {
+    if (!id) return;
     return todoList.find((e) => e.id === id);
   }
 
@@ -128,8 +129,8 @@ const Todo = ({ todoData = [] }: todoProps) => {
                   todoList={todoList}
                   setTodoList={setTodoList}
                   updateList={updateList}
-                  currentDrawer={currentDrawer}
-                  setCurrentDrawer={setCurrentDrawer}
+                  currentDrawerId={currentDrawerId}
+                  setCurrentDrawerId={setCurrentDrawerId}
                 />
               )
             );
@@ -152,8 +153,8 @@ const Todo = ({ todoData = [] }: todoProps) => {
                   todoList={todoList}
                   setTodoList={setTodoList}
                   updateList={updateList}
-                  currentDrawer={currentDrawer}
-                  setCurrentDrawer={setCurrentDrawer}
+                  currentDrawerId={currentDrawerId}
+                  setCurrentDrawerId={setCurrentDrawerId}
                 />
               )
             );
@@ -161,7 +162,7 @@ const Todo = ({ todoData = [] }: todoProps) => {
         </ul>
       </Box>
       <TodoItemDrawer
-        todo={getTodoItem(currentDrawer)}
+        todo={getTodoItem(currentDrawerId)}
         todoList={todoList}
         setTodoList={setTodoList}
         updateList={updateList}

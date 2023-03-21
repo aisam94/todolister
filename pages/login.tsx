@@ -67,7 +67,7 @@ const Login = () => {
     signIn(email, password);
   };
 
-  const createErrorNotification = (errorMsg: string): any => {
+  const createErrorNotification = (errorMsg: string): void => {
     toast({
       title: "Error",
       description: errorMsg,

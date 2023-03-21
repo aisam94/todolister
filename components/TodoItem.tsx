@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent, SetStateAction } from "react";
+import React, { useState, MouseEvent, SetStateAction, Dispatch } from "react";
 import { DocumentData, Timestamp } from "@firebase/firestore";
 import {
   Button,
@@ -15,8 +15,8 @@ interface todoItemProps {
   todoList: TodoItemType[];
   setTodoList: React.Dispatch<SetStateAction<TodoItemType[]>>;
   updateList: (newList: DocumentData[]) => void;
-  currentDrawer: any;
-  setCurrentDrawer: any;
+  currentDrawerId?: string;
+  setCurrentDrawerId: Dispatch<SetStateAction<string | undefined>>;
 }
 
 const TodoItem = ({
@@ -24,8 +24,8 @@ const TodoItem = ({
   todoList,
   setTodoList,
   updateList,
-  currentDrawer,
-  setCurrentDrawer,
+  currentDrawerId,
+  setCurrentDrawerId,
 }: todoItemProps) => {
   const toggleCheckbox = () => {
     const id = item.id;
@@ -62,13 +62,13 @@ const TodoItem = ({
   };
 
   function handleShowDrawer() {
-    setCurrentDrawer(item.id);
+    setCurrentDrawerId(item.id);
   }
 
   return (
     <li
       className={`flex items-center max-w-full min-w-0 ${
-        currentDrawer === item.id && "bg-accent-focus"
+        currentDrawerId === item.id && "bg-accent-focus"
       }`}
       key={item.id}
     >
@@ -106,12 +106,7 @@ const TodoItem = ({
         >
           <img className="h-5 w-5" src="/more-vertical-svgrepo-com.svg" />
         </Button>
-        <Button
-          padding="0"
-          colorScheme="red"
-          id={item.id}
-          onClick={deleteTodo}
-        >
+        <Button padding="0" colorScheme="red" id={item.id} onClick={deleteTodo}>
           <img className="h-5 w-5" src="/x.svg" />
         </Button>
       </ButtonGroup>
