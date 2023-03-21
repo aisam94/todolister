@@ -138,96 +138,105 @@ const TodoItemDrawer = ({
 
   return (
     <Box className="todo-item-drawer h-full left-full ml-4 flex flex-col absolute mt-4 bg-white p-4 priority-container rounded-lg drop-shadow">
-      <div className="mb-1 font-bold truncate">{todo.text}</div>
+      {!todo.text ? (
+        <div className="flex flex-col items-center justify-center h-full">
+          <img className="h-28 w-28 m-2 opacity-50" src="/click.svg"/>
+          <span className="text-secondary">Click a todo item to view the details</span>
+        </div>
+      ) : (
+        <div>
+          <div className="mb-1 font-bold truncate">{todo.text}</div>
 
-      {/* Due Date */}
-      <div className="font-bold">Due Date</div>
-      <div className="mt-1">
-        <Input
-          type="date"
-          variant="filled"
-          value={dueDate ?? ""}
-          onChange={(e) => handleDate(e.target.value)}
-        />
-      </div>
-      <Divider className="my-2" />
+          {/* Due Date */}
+          <div className="font-bold">Due Date</div>
+          <div className="mt-1">
+            <Input
+              type="date"
+              variant="filled"
+              value={dueDate ?? ""}
+              onChange={(e) => handleDate(e.target.value)}
+            />
+          </div>
+          <Divider className="my-2" />
 
-      {/* Priority */}
-      <div className="font-bold">Priority</div>
-      <div className="flex justify-evenly w-full mt-1">
-        <Tooltip label="High priority">
-          <img
-            className={`priority-selector ${
-              priority === "high" && "priority-selected"
-            }`}
-            src="/notification-priority-solid-svgrepo-com-error.svg"
-            onClick={(e) => handlePriority("high")}
-          />
-        </Tooltip>
-        <Tooltip label="Medium priority">
-          <img
-            className={`priority-selector ${
-              priority === "medium" && "priority-selected"
-            }`}
-            src="/notification-priority-solid-svgrepo-com-medium.svg"
-            onClick={(e) => handlePriority("medium")}
-          />
-        </Tooltip>
-        <Tooltip label="Low priority">
-          <img
-            className={`priority-selector ${
-              priority === "low" && "priority-selected"
-            }`}
-            src="/notification-priority-solid-svgrepo-com-low.svg"
-            onClick={(e) => handlePriority("low")}
-          />
-        </Tooltip>
-        <Tooltip label="No priority">
-          <img
-            className={`priority-selector ${
-              priority === "none" || (!todo.priority && "priority-selected")
-            }`}
-            src="/notification-priority-solid-svgrepo-com-none.svg"
-            onClick={(e) => handlePriority("none")}
-          />
-        </Tooltip>
-      </div>
-      <Divider className="my-2" />
+          {/* Priority */}
+          <div className="font-bold">Priority</div>
+          <div className="flex justify-evenly w-full mt-1">
+            <Tooltip label="High priority">
+              <img
+                className={`priority-selector ${
+                  priority === "high" && "priority-selected"
+                }`}
+                src="/notification-priority-solid-svgrepo-com-error.svg"
+                onClick={(e) => handlePriority("high")}
+              />
+            </Tooltip>
+            <Tooltip label="Medium priority">
+              <img
+                className={`priority-selector ${
+                  priority === "medium" && "priority-selected"
+                }`}
+                src="/notification-priority-solid-svgrepo-com-medium.svg"
+                onClick={(e) => handlePriority("medium")}
+              />
+            </Tooltip>
+            <Tooltip label="Low priority">
+              <img
+                className={`priority-selector ${
+                  priority === "low" && "priority-selected"
+                }`}
+                src="/notification-priority-solid-svgrepo-com-low.svg"
+                onClick={(e) => handlePriority("low")}
+              />
+            </Tooltip>
+            <Tooltip label="No priority">
+              <img
+                className={`priority-selector ${
+                  priority === "none" || (!todo.priority && "priority-selected")
+                }`}
+                src="/notification-priority-solid-svgrepo-com-none.svg"
+                onClick={(e) => handlePriority("none")}
+              />
+            </Tooltip>
+          </div>
+          <Divider className="my-2" />
 
-      {/* Tags */}
-      <div className="font-bold">Tags</div>
-      <form onSubmit={addTags}>
-        <Input
-          value={inputTag}
-          variant="filled"
-          onChange={(e) => handleInputTag(e.target.value)}
-          placeholder="Add tags here..."
-        />
-      </form>
-      <div className="flex flex-wrap">
-        {tags &&
-          tags.map((tag, index) => {
-            return (
-              <div key={index} className="mx-1 my-1">
-                <Tag>
-                  <TagLabel>{tag}</TagLabel>
-                  <TagCloseButton onClick={(e) => removeTag(index)} />
-                </Tag>
-              </div>
-            );
-          })}
-      </div>
-      <Divider className="my-2" />
+          {/* Tags */}
+          <div className="font-bold">Tags</div>
+          <form onSubmit={addTags}>
+            <Input
+              value={inputTag}
+              variant="filled"
+              onChange={(e) => handleInputTag(e.target.value)}
+              placeholder="Add tags here..."
+            />
+          </form>
+          <div className="flex flex-wrap">
+            {tags &&
+              tags.map((tag, index) => {
+                return (
+                  <div key={index} className="mx-1 my-1">
+                    <Tag>
+                      <TagLabel>{tag}</TagLabel>
+                      <TagCloseButton onClick={(e) => removeTag(index)} />
+                    </Tag>
+                  </div>
+                );
+              })}
+          </div>
+          <Divider className="my-2" />
 
-      {/* Description */}
-      <div className="font-bold">Description</div>
-      <Textarea
-        className="flex-grow mt-2 mb-6"
-        value={description ?? ""}
-        onChange={(e) => handleDescription(e.target.value)}
-        placeholder="Enter todo description here..."
-        variant={"filled"}
-      />
+          {/* Description */}
+          <div className="font-bold">Description</div>
+          <Textarea
+            className="flex-grow mt-2 mb-6"
+            value={description ?? ""}
+            onChange={(e) => handleDescription(e.target.value)}
+            placeholder="Enter todo description here..."
+            variant={"filled"}
+          />
+        </div>
+      )}
     </Box>
   );
 };

@@ -110,8 +110,8 @@ const Todo = ({ todoData = [] }: todoProps) => {
                   You may edit the item by clicking the text itself.
                 </li>
                 <li className="ml-2">
-                  You may edit extra properties such as due date, priority, etc
-                  by clicking the blue button.
+                  You may also edit details such as due date, priority, etc
+                  in the section provided.
                 </li>
               </PopoverBody>
             </PopoverContent>

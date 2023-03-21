@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent, SetStateAction, Dispatch } from "react";
+import React, {SetStateAction, Dispatch } from "react";
 import { DocumentData, Timestamp } from "@firebase/firestore";
 import {
   Button,
@@ -67,7 +67,7 @@ const TodoItem = ({
 
   return (
     <li
-      className={`flex items-center max-w-full min-w-0 ${
+      className={`flex items-center max-w-full min-w-0 cursor-pointer hover:bg-accent-focus ${
         currentDrawerId === item.id && "bg-accent-focus"
       }`}
       key={item.id}
@@ -81,7 +81,7 @@ const TodoItem = ({
         borderColor="black"
         size="lg"
       ></Checkbox>
-      <div className="text-left flex-1 min-w-0">
+      <div className="text-left flex-1 min-w-0" onClick={handleShowDrawer}>
         <Editable
           defaultValue={item.text}
           onSubmit={(e) => editTodo(e)}
@@ -98,14 +98,6 @@ const TodoItem = ({
         </Editable>
       </div>
       <ButtonGroup className="" variant="solid" spacing={4} alignItems="center">
-        <Button
-          padding={"0"}
-          colorScheme="blue"
-          id={item.id}
-          onClick={handleShowDrawer}
-        >
-          <img className="h-5 w-5" src="/more-vertical-svgrepo-com.svg" />
-        </Button>
         <Button padding="0" colorScheme="red" id={item.id} onClick={deleteTodo}>
           <img className="h-5 w-5" src="/x.svg" />
         </Button>
