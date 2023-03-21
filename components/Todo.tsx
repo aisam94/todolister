@@ -107,7 +107,11 @@ const Todo = ({ todoData = [] }: todoProps) => {
                   Add new todo item by writing inside the input.
                 </li>
                 <li className="ml-2">
-                  You can edit the item by clicking the text itself.
+                  You may edit the item by clicking the text itself.
+                </li>
+                <li className="ml-2">
+                  You may edit extra properties such as due date, priority, etc
+                  by clicking the blue button.
                 </li>
               </PopoverBody>
             </PopoverContent>
