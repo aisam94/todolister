@@ -144,7 +144,8 @@ const TodoItemDrawer = ({
           <span className="text-secondary">Click a todo item to view the details</span>
         </div>
       ) : (
-        <div>
+        <div className="flex flex-col h-full">
+          <div className="mb-1 font-bold text-center">Todo Item Details</div>
           <div className="mb-1 font-bold truncate">{todo.text}</div>
 
           {/* Due Date */}

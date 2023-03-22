@@ -432,7 +432,7 @@ form input {
 }
 
 .priority-container {
-  width: 400px
+  width: 400px;
 }
 
 .priority-selector {
@@ -450,7 +450,6 @@ form input {
   background-color: #ddd;
 }
 
-.todo-item-drawer{
-  height:700px;
-
+.todo-item-drawer {
+  height: 600px;
 }
