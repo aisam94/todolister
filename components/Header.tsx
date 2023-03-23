@@ -80,7 +80,7 @@ const Header = () => {
             ) : (
               <div className="text-primary max-sm:flex max-sm:flex-col">
                 <Link href="/register">
-                  <span className="header-link-auth hover:bg-accent font-thin">
+                  <span className="header-link-auth hover:bg-accent">
                     Register
                   </span>
                 </Link>
