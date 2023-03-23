@@ -312,8 +312,10 @@ form input {
 .about-paragraph {
   margin: auto;
   margin-top: 1em;
-  width: 500px;
+  max-width: 500px;
   line-height: 2em;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 @media screen and (max-width: 640px) {
