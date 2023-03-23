@@ -86,7 +86,7 @@ const Login = () => {
   }
 
   return (
-    <div className="login-main mt-4">
+    <div className="login-main mt-4 px-4">
       <Box className="form-container">
         <h1 className="form-secondary-title text-primary font-bold text-xl">
           Sign in to your account
