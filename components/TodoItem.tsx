@@ -17,6 +17,7 @@ interface todoItemProps {
   updateList: (newList: DocumentData[]) => void;
   currentDrawerId?: string;
   setCurrentDrawerId: Dispatch<SetStateAction<string | undefined>>;
+  onOpen:any;
 }
 
 const TodoItem = ({
@@ -26,6 +27,7 @@ const TodoItem = ({
   updateList,
   currentDrawerId,
   setCurrentDrawerId,
+  onOpen,
 }: todoItemProps) => {
   const toggleCheckbox = () => {
     const id = item.id;
@@ -63,6 +65,7 @@ const TodoItem = ({
 
   function handleShowDrawer() {
     setCurrentDrawerId(item.id);
+    onOpen();
   }
 
   return (

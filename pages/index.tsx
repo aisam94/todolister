@@ -28,9 +28,7 @@ const HomePage = (): JSX.Element => {
           <Greeting />
         </div>
       ) : (
-        <div className="w-full flex justify-center">
-          <Todo todoData={todoData ? todoData.todo : []} />
-        </div>
+        <Todo todoData={todoData ? todoData.todo : []} />
       )}
     </div>
   );

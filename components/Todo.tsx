@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { nanoid } from "nanoid";
 import { doc, setDoc } from "firebase/firestore";
 import { DocumentData, Timestamp } from "@firebase/firestore";
@@ -7,6 +7,9 @@ import { auth, db } from "../firebase";
 import TodoItem from "./TodoItem";
 import {
   Box,
+  Drawer,
+  DrawerCloseButton,
+  DrawerContent,
   Input,
   Popover,
   PopoverArrow,
@@ -15,6 +18,7 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { TodoItem as TodoItemType } from "../types/todo";
 import TodoItemDrawer from "./TodoItemDrawer";
@@ -28,6 +32,9 @@ const Todo = ({ todoData = [] }: todoProps) => {
   const [todoinput, setFormData] = useState("");
   const [todoList, setTodoList] = useState<TodoItemType[]>([]);
   const [currentDrawerId, setCurrentDrawerId] = useState<string | undefined>();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const windowSize = useRef([window.innerWidth, window.innerHeight]);
 
   const change = (event: { target: HTMLInputElement }) => {
     setFormData(event.target.value);
@@ -70,7 +77,7 @@ const Todo = ({ todoData = [] }: todoProps) => {
   }, []);
 
   return (
-    <div className="flex relative mt-4">
+    <div className="w-full flex justify-center relative">
       <Box className="todo-container">
         <h1 className="todo-title">Todo List</h1>
         <div className="flex w-full">
@@ -110,8 +117,8 @@ const Todo = ({ todoData = [] }: todoProps) => {
                   You may edit the item by clicking the text itself.
                 </li>
                 <li className="ml-2">
-                  You may also edit details such as due date, priority, etc
-                  in the section provided.
+                  You may also edit details such as due date, priority, etc in
+                  the section provided.
                 </li>
               </PopoverBody>
             </PopoverContent>
@@ -135,6 +142,7 @@ const Todo = ({ todoData = [] }: todoProps) => {
                   updateList={updateList}
                   currentDrawerId={currentDrawerId}
                   setCurrentDrawerId={setCurrentDrawerId}
+                  onOpen={onOpen}
                 />
               )
             );
@@ -159,18 +167,28 @@ const Todo = ({ todoData = [] }: todoProps) => {
                   updateList={updateList}
                   currentDrawerId={currentDrawerId}
                   setCurrentDrawerId={setCurrentDrawerId}
+                  onOpen={onOpen}
                 />
               )
             );
           })}
         </ul>
       </Box>
-      <TodoItemDrawer
-        todo={getTodoItem(currentDrawerId)}
-        todoList={todoList}
-        setTodoList={setTodoList}
-        updateList={updateList}
-      />
+      <Drawer
+        isOpen={isOpen}
+        onClose={onClose}
+        size={windowSize.current[0] > 500 ? "sm" : "full"}
+      >
+        <DrawerContent>
+          <DrawerCloseButton />
+          <TodoItemDrawer
+            todo={getTodoItem(currentDrawerId)}
+            todoList={todoList}
+            setTodoList={setTodoList}
+            updateList={updateList}
+          />
+        </DrawerContent>
+      </Drawer>
     </div>
   );
 };
